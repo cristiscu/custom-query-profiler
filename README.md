@@ -25,7 +25,8 @@ Run a query from Snowflake and copy its query ID, after the execution. From the 
 
 I ran the following query:
 
-<code>select c_name, c_custkey, o_orderkey, o_orderdate, 
+```
+select c_name, c_custkey, o_orderkey, o_orderdate, 
   o_totalprice, sum(l_quantity)
 from customer
   inner join orders on c_custkey = o_custkey
@@ -37,7 +38,8 @@ where o_orderkey in (
     having sum(l_quantity) > 200)
   and o_orderdate >= dateadd(year, -25, current_date)
 group by c_name, c_custkey, o_orderkey, o_orderdate, o_totalprice 
-order by o_totalprice desc, o_orderdate;</code>
+order by o_totalprice desc, o_orderdate;
+```
 
 And here is the top portion of my complex query execution plan:
 
