@@ -1,16 +1,11 @@
 Snowflake Custom Query Profiler
 ===============================
 
-Simple tool to connect to Snowflake and generate a HTML file with a DOT graph that can show all database object dependencies.
+Simple tool to connect to Snowflake and generate a HTML file with a DOT graph that shows the query profile for a query ID.
 
 # Database Profile File
 
-Create a **profiles_db.conf** copy of the **profiles_db_template.conf** file, and customize it with your own Snowflake connection parameters. Your top [default] profile is the active profile, considered by our tool. Below you may define other personal profiles, that you may override under [default] each time you want to change your active connection.
-
-The database and schema are optional:
-* When connecting with no database and no schema, the tool will get all the data through the new **[OBJECT_DEPENDENCIES](https://docs.snowflake.com/en/user-guide/object-dependencies.html)** view.
-* When connecting with a database, the tool will look only for referenced and referencing objects from this database alone, and will skip the database name in the fully-qualified names of the nodes.
-* When connecting with both a database and a schema, the tool will look only for referenced and referencing objects from this database schema alone, and will skip the database and schema names in the fully-qualified names of the nodes.
+Create a **profiles_db.conf** copy of the **profiles_db_template.conf** file, and customize it with your own Snowflake connection parameters: just the account name and user name. Your top [default] profile is the active profile, considered by our tool. Below you may define other personal profiles, that you may override under [default] each time you want to change your active connection.
 
 We connect to Snowflake with the Snowflake Connector for Python. We have code for (a) password-based connection, (b) connecting with a Key Pair, and (c) connecting with SSO. For password-based connection, save your password in a SNOWFLAKE_PASSWORD local environment variable. Never add the password or any other sensitive information to your code or to profile files. All names must be case sensitive, with no quotes.
 
@@ -20,56 +15,55 @@ To compile into a CLI executable:
 
 **<code>pip install pyinstaller</code>**  
 **<code>pyinstaller --onefile custom-query-profiler.py</code>**  
-**<code>dist/custom-query-profiler</code>**  
+**<code>dist\custom-query-profiler</code>**  
 
-# 1. Show All Dependencies from the Current Account
+# Show Some Query Execution Profile
 
-Connect with no database and no schema, to show a generated SVG graph in a HTML file for all existing dependencies. Call the tool as below:
+Run a query from Snowflake and copy its query ID, after the execution. From the command line, make sure you replace the last argument with your own query ID:
 
-**<code>python custom-query-profiler.py</code>**  
+**<code>python custom-query-profiler.py 01ab2f03-0502-b9aa-004e-a2830079d89e</code>**  
 
-The following is what I had from my own Snowflake test account:
+I ran the following query:
 
-![All Dependencies](/images/account.png)
+<code>select c_name, c_custkey, o_orderkey, o_orderdate, 
+  o_totalprice, sum(l_quantity)
+from customer
+  inner join orders on c_custkey = o_custkey
+  inner join lineitem on o_orderkey = l_orderkey
+where o_orderkey in (
+    select l_orderkey
+    from lineitem
+    group by l_orderkey
+    having sum(l_quantity) > 200)
+  and o_orderdate >= dateadd(year, -25, current_date)
+group by c_name, c_custkey, o_orderkey, o_orderdate, o_totalprice 
+order by o_totalprice desc, o_orderdate;</code>
 
-All displayed names are fully-qualified, and the rendering if left-to-right, with the objects that depend on other objects on the left. Dotted arrows are for BY_ID dependencies, dashed for BY_NAME, and solid for BY_NAME_AND_ID. We do not show the ID values.
+And here is the top portion of my complex query execution plan:
 
-# 2. Show All Dependencies from a Database
+![Top Portion of Custom Query Profile](/images/diagram1.png)
 
-Connect with a database name in the profile file, than call the tool exactly like before. The following is what I had connecting with the EmployeesQX database:
+The middle portion:
 
-![Database Dependencies](/images/account-EmployeesQX.png)
+![Middle Portion of Custom Query Profile](/images/diagram2.png)
 
-All displayed names are fully-qualified, but with no database name. Referenced or referencing objects from other databases are not included.
+The bottom portion:
 
-# 3. Show All Dependencies from a Database Schema
+![Bottom Portion of Custom Query Profile](/images/diagram3.png)
 
-Connect with both a database and a schema name in the profile file, than call the tool exactly like before. The following is what I had after connecting with the PUBLIC schema from the EmployeesQX database:
+The info was callected from the result of the following call (replace with your own query ID):
 
-![Schema Dependencies](/images/account-EmployeesQX.PUBLIC.png)
+**<code>select * from table(GET_QUERY_OPERATOR_STATS('01ab2f03–0502-b9aa-004e-a2830079d89e'))</code>**  
 
-The displayed names are no longer fully-qualified, because all objects belong to the same database and schema. Referenced or referencing objects from other databases and schemas are not included.
+![GET_QUERY_OPERATOR_STATS Results](/images/diagram_results.png)
 
-# 4. Show All Dependencies of a Database Object
+# The Query Profile in Snowflake
 
-Connect with both a database and a schema name in the profile file, than call the tool with the simple name of the object. The object name must be case sensitive as well, with no quotes:
+Two images with the similar built-in Query Profiler from Snowflake, for the exact same query:
 
-**<code>python custom-query-profiler.py checkManagerEmployee</code>**  
+![Query Profile in Snowflake](/images/query_profile.png)
 
-The following is what I had for the EmployeesQX.PUBLIC.checkManagerEmployee user-defined function displayed before
+Another partial view:
 
-![Object Dependencies](/images/account-EmployeesQX.PUBLIC.checkManagerEmployee.png)
+![Query Profile in Snowflake - Another View](/images/query_profile2.png)
 
-All displayed names are fully-qualified, in case you may have inter-database dependencies. You might have referenced or referencing objects from other databases and schemas. The rendering if now top-down, with your named object on top.
-
-# 5. Show All Dependencies on a Database Object
-
-Just like before, connect with both a database and a schema name in the profile file, than call the tool with the simple name of the object. The object name must be case sensitive as well, with no quotes. This time however append a **--reverse** option, which will show the reverse dependency hierarchy of an object:
-
-**<code>python custom-query-profiler.py emp --reverse</code>**  
-
-The following is what I had for the EmployeesQX.PUBLIC.emp table displayed before:
-
-![Object Dependencies](/images/account-EmployeesQX.PUBLIC.emp-rev.png)
-
-All displayed names are fully-qualified, in case you may have inter-database dependencies. You might have referenced or referencing objects from other databases and schemas. The rendering if also top-down, with your named object on top. All the arrows point now backwards, to the top, because the top object is a dependent object.

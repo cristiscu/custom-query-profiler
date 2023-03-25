@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body><script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+<script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+<div id="graph" style="text-align: center;"></div>
+<script>
+var graphviz = d3.select("#graph").graphviz()
+   .on("initEnd", () => { graphviz.renderDot(d3.select("#digraph").text()); });
+</script>
+<textarea id="digraph" style="display:none; height:0px;">
+digraph G {
+  graph [ rankdir="TB" bgcolor="#ffffff" ]
+  edge [ penwidth="1" color="#696969" dir="back" style="solid" ]
+
+  n0 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Result</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">bytes_written_to_result: 83,633</font></td></tr>
+    </table>>
+  ]
+  i0 [ label="4,524" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n1 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Sort</b></font></td></tr>
+    </table>>
+  ]
+  i1 [ label="4,524" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n2 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Aggregate</b></font></td></tr>
+    </table>>
+  ]
+  i2 [ label="4,524" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n3 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Aggregate</b></font></td></tr>
+    </table>>
+  ]
+  i3 [ label="30,381" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n4 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Join</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">join_type: INNER</font></td></tr>
+      <tr><td align="left"><font color="#000000">overall_percentage: 14.6%</font></td></tr>
+    </table>>
+  ]
+  i4 [ label="60,040" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n5 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Aggregate</b></font></td></tr>
+    </table>>
+  ]
+  i5 [ label="4,524" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n6 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Join</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">join_type: INNER</font></td></tr>
+    </table>>
+  ]
+  i6 [ label="9,556" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n7 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Join</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">join_type: INNER</font></td></tr>
+    </table>>
+  ]
+  i7 [ label="88,743" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n8 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Filter</b></font></td></tr>
+    </table>>
+  ]
+  i8 [ label="1,500,000" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n9 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Aggregate</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">overall_percentage: 12.5%</font></td></tr>
+    </table>>
+  ]
+  i9 [ label="6,001,215" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n10 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>TableScan</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">table_name: SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.LINEITEM</font></td></tr>
+      <tr><td align="left"><font color="#000000">overall_percentage: 20.8%</font></td></tr>
+      <tr><td align="left"><font color="#000000">remote_disk_io: 21%</font></td></tr>
+      <tr><td align="left"><font color="#000000">bytes_scanned: 21,217,280</font></td></tr>
+      <tr><td align="left"><font color="#000000">percentage_scanned_from_cache: 0.00%</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_scanned: 10</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_total: 10</font></td></tr>
+    </table>>
+  ]
+  n11 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>Filter</b></font></td></tr>
+    </table>>
+  ]
+  i11 [ label="5,319" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n12 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>JoinFilter</b></font></td></tr>
+    </table>>
+  ]
+  i12 [ label="5,319" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n13 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>TableScan</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">table_name: SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERS</font></td></tr>
+      <tr><td align="left"><font color="#000000">overall_percentage: 35.4%</font></td></tr>
+      <tr><td align="left"><font color="#000000">remote_disk_io: 35%</font></td></tr>
+      <tr><td align="left"><font color="#000000">bytes_scanned: 15,646,720</font></td></tr>
+      <tr><td align="left"><font color="#000000">percentage_scanned_from_cache: 0.00%</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_scanned: 10</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_total: 10</font></td></tr>
+    </table>>
+  ]
+  n14 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>JoinFilter</b></font></td></tr>
+    </table>>
+  ]
+  i14 [ label="5,032" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n15 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>TableScan</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">table_name: SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER</font></td></tr>
+      <tr><td align="left"><font color="#000000">overall_percentage: 6.2%</font></td></tr>
+      <tr><td align="left"><font color="#000000">remote_disk_io: 6%</font></td></tr>
+      <tr><td align="left"><font color="#000000">bytes_scanned: 1,335,296</font></td></tr>
+      <tr><td align="left"><font color="#000000">percentage_scanned_from_cache: 0.00%</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_scanned: 3</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_total: 3</font></td></tr>
+    </table>>
+  ]
+  n16 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>JoinFilter</b></font></td></tr>
+    </table>>
+  ]
+  i16 [ label="55,516" style="filled" shape="oval" fillcolor="#ffffff" ]
+  n17 [
+    style="filled" shape="record" color="SkyBlue"
+    fillcolor="#d3dcef:#ffffff" color="#716f64" penwidth="1"
+    label=<<table style="rounded" border="0" cellborder="0" cellspacing="0" cellpadding="1">
+      <tr><td bgcolor="transparent" align="center"><font color="#000000"><b>TableScan</b></font></td></tr>
+      <tr><td align="left"><font color="#000000">table_name: SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.LINEITEM</font></td></tr>
+      <tr><td align="left"><font color="#000000">bytes_scanned: 20,070,400</font></td></tr>
+      <tr><td align="left"><font color="#000000">percentage_scanned_from_cache: 100.00%</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_scanned: 10</font></td></tr>
+      <tr><td align="left"><font color="#000000">partitions_total: 10</font></td></tr>
+    </table>>
+  ]
+
+  n0 -> i0;
+  n1 -> i1;
+  i0 -> n1;
+  n2 -> i2;
+  i1 -> n2;
+  n3 -> i3;
+  i2 -> n3;
+  n4 -> i4;
+  i3 -> n4;
+  n5 -> i5;
+  i4 -> n5;
+  n6 -> i6;
+  i5 -> n6;
+  n7 -> i7;
+  i6 -> n7;
+  n8 -> i8;
+  i7 -> n8;
+  n9 -> i9;
+  i8 -> n9;
+  i9 -> n10;
+  n11 -> i11;
+  i7 -> n11;
+  n12 -> n7 [  dir="forward" style="dashed" ];
+  n12 -> i12;
+  i11 -> n12;
+  i12 -> n13;
+  n14 -> n6 [  dir="forward" style="dashed" ];
+  n14 -> i14;
+  i6 -> n14;
+  i14 -> n15;
+  n16 -> n4 [  dir="forward" style="dashed" ];
+  n16 -> i16;
+  i4 -> n16;
+  i16 -> n17;
+}
+</textarea>
