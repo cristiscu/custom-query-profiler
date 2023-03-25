@@ -53,7 +53,9 @@ The bottom portion:
 
 ![Bottom Portion of Custom Query Profile](/images/diagram3.png)
 
-The info was callected from the result of the following call (replace with your own query ID):
+# The new GET_QUERY_OPERATOR_STATS table system function
+
+The info was collected from the result of the following call (replace with your own query ID):
 
 **<code>select * from table(GET_QUERY_OPERATOR_STATS('01ab2f03–0502-b9aa-004e-a2830079d89e'))</code>**  
 
