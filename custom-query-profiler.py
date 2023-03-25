@@ -95,7 +95,7 @@ def saveHtml(filename, s):
         + '</script>\n'
         + '<textarea id="digraph" style="display:none; height:0px;">\n'
         + s
-        + '</textarea>\n')
+        + '</textarea></body>\n')
 
     print(f"Generating {filename} file...")
     with open(filename, "w") as file:
